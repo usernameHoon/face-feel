@@ -3,7 +3,7 @@
 ## 1. 프로젝트 개요
 - **프로젝트 명칭**: FaceFeel
 - **한 줄 소개**: 웹캠을 이용하여 실시간으로 얼굴을 인식해 감정을 분석하는 웹 애플리케이션입니다.
-- **기술 스택**: React, Spring Boot, Flask (Python), MySQL, Chart.js, deepface
+- **기술 스택**: React, Spring Boot, Flask (Python), MySQL, Chart.js, DeepFace
 
 ---
 
@@ -16,7 +16,7 @@
 ## 3. 시스템 아키텍처
 - **Frontend**: React (웹캠, 결과 표시, 마이페이지) + TailwindCSS (디자인)
 - **Backend**: Spring Boot (DB 연동, 사용자, 기록 API)
-- **AI Server**: Flask + cv2 + deepface (이미지 → 음식명 예측)
+- **AI Server**: Flask + cv2 + DeepFace (얼굴 인식 → 감정 분석)
 - **Database**: MySQL (회원 DB, 기록 저장)
 
 ```
