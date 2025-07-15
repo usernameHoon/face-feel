@@ -1,2 +1,95 @@
-# FaceFeel
-A real-time, web-based emotion recognition system that analyzes facial expressions and classifies emotions. Built with Python (Flask), React, and Spring Boot.
+# FaceFeel - 웹캠을 통한 실시간 얼굴 인식 감정 분석 앱
+
+## 1. 프로젝트 개요
+- **프로젝트 명칭**: FaceFeel
+- **한 줄 소개**: 웹캠을 이용하여 실시간으로 얼굴을 인식해 감정을 분석하는 웹 애플리케이션입니다.
+- **기술 스택**: React, Spring Boot, Flask (Python), MySQL, Chart.js, deepface
+
+---
+
+## 2. 개발 목적 & 배경
+- 
+- 
+
+---
+
+## 3. 시스템 아키텍처
+- **Frontend**: React (웹캠, 결과 표시, 마이페이지) + TailwindCSS (디자인)
+- **Backend**: Spring Boot (DB 연동, 사용자, 기록 API)
+- **AI Server**: Flask + cv2 + deepface (이미지 → 음식명 예측)
+- **Database**: MySQL (회원 DB, 기록 저장)
+
+```
+[React] → 웹캠으로 실시간 얼굴 감지
+   ↓
+[Flask] → 얼굴 감지 & 감정 분석
+   ↓
+[Spring Boot] → DB 저장 & 조회
+   ↓
+[MySQL] → 얼굴+감정 / 사용자 / 분석 결과
+```
+
+---
+
+## 4. 주요 기능 소개
+- ✅ 
+- ✅ (Spring + MySQL)  
+- ✅ 시각화: 
+- ✅ 분석 기록 마이페이지 조회, 삭제 기능 포함 (※ 삭제 기능은 미구현)
+
+---
+
+## 5. AI 모델 구성
+- **데이터셋**: 
+- **모델**: 
+- **서빙**: 
+
+---
+
+## 6. 영양소 분석 및 추천 로직
+- ✅ 
+- 
+
+---
+
+## 7. 감정정보 시각화 (Chart.js 사용)
+- ✅ 
+- ✅ 
+- ✅ 
+- ✅ 
+
+---
+
+## 8. 사용자 마이페이지 기능
+- ✅ 분석 이력 조회 및 결과 보기
+- ✅ 회원탈퇴 기능
+---
+
+## 9. 실행화면 (사용자 / 관리자)
+### 👤 사용자 화면
+> 
+> 
+
+
+---
+
+### 🛠 관리자 화면
+> 
+> 
+
+
+---
+
+## 10. 회고 및 개선 사항
+- ✅ 전 스택 통합 경험 (React ↔ Flask ↔ Spring ↔ DB)
+- ✅ CORS, cv2를 이용한 영상 처리
+
+---
+
+## 11. 향후 확장 계획
+- ✅ 
+- ✅ 
+- ✅ 
+- ✅ 
+
+---
