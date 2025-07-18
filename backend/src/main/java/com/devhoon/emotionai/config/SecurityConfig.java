@@ -39,9 +39,10 @@ public class SecurityConfig {
         .csrf(csrf -> csrf.disable())
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests(auth -> auth
-            .requestMatchers("/api/login", "/api/signup").permitAll()
+            .requestMatchers("/api/signin", "/api/signup").permitAll()
             .requestMatchers("/api/withdraw").authenticated()
-            .requestMatchers("/api/food-analysis/**").authenticated()
+            .requestMatchers("/api/save-emotion").authenticated()
+            .requestMatchers("/api/emotion-log").authenticated()
             .anyRequest().authenticated())
 
         .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

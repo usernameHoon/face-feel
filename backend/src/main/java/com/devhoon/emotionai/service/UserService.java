@@ -2,7 +2,7 @@ package com.devhoon.emotionai.service;
 
 import com.devhoon.emotionai.config.JwtProvider;
 import com.devhoon.emotionai.constant.UserRole;
-import com.devhoon.emotionai.dto.LoginResponseDTO;
+import com.devhoon.emotionai.dto.SigninResponseDTO;
 import com.devhoon.emotionai.dto.UserRequestDTO;
 import com.devhoon.emotionai.dto.UserResponseDTO;
 import com.devhoon.emotionai.entity.User;
@@ -50,7 +50,7 @@ public class UserService {
     userRepository.save(user);
   }
 
-  public LoginResponseDTO login(String email, String password) {
+  public SigninResponseDTO signin(String email, String password) {
     User user = userRepository.findByEmailAndIsDeletedFalse(email)
         .orElseThrow(() -> new AuthenticationFailedException("탈퇴한 사용자이거나 이메일이 존재하지 않습니다."));
 
@@ -60,7 +60,7 @@ public class UserService {
 
     String token = jwtProvider.generateToken(user.getEmail()); // JWT 발급
 
-    return new LoginResponseDTO(token, new UserResponseDTO(user));
+    return new SigninResponseDTO(token, new UserResponseDTO(user));
   }
 
   public User authenticateUser(String email, String password) {

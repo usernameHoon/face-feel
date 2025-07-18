@@ -1,7 +1,7 @@
 package com.devhoon.emotionai.controller;
 
-import com.devhoon.emotionai.dto.LoginRequestDTO;
-import com.devhoon.emotionai.dto.LoginResponseDTO;
+import com.devhoon.emotionai.dto.SigninRequestDTO;
+import com.devhoon.emotionai.dto.SigninResponseDTO;
 import com.devhoon.emotionai.dto.UserRequestDTO;
 import com.devhoon.emotionai.security.CustomUserDetails;
 import com.devhoon.emotionai.service.UserService;
@@ -20,9 +20,9 @@ public class UserController {
   private final UserService userService;
 
   // 로그인
-  @PostMapping("/login")
-  public ResponseEntity<LoginResponseDTO> login(@RequestBody LoginRequestDTO loginDto) {
-    LoginResponseDTO response = userService.login(loginDto.getEmail(), loginDto.getPassword());
+  @PostMapping("/signin")
+  public ResponseEntity<SigninResponseDTO> signin(@RequestBody SigninRequestDTO signinDto) {
+    SigninResponseDTO response = userService.signin(signinDto.getEmail(), signinDto.getPassword());
     return ResponseEntity.ok(response);
   }
 
