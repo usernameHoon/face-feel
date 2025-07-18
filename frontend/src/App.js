@@ -11,7 +11,7 @@ import Home from './pages/Home';
 import PrivateRoute from "./routes/PrivateRoute";
 
 function AppWrapper() {
-  const [isLoggedIn, setIsLoggedIn] = useState(() => !!localStorage.getItem("token"));
+  const [isSignedIn, setIsSignedIn] = useState(() => !!localStorage.getItem("token"));
   const location = useLocation();
   const user = JSON.parse(localStorage.getItem("user"));
   const isAdmin = user?.role === "ADMIN";
@@ -22,12 +22,12 @@ function AppWrapper() {
   return (
     <>
       <div className="flex flex-col min-h-screen bg-gray-50 text-gray-800">
-        {!hideHeader && <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />}
-        <main className="flex-grow flex justify-center items-start pt-44">
+        {!hideHeader && <Header isSignedIn={isSignedIn} setIsSignedIn={setIsSignedIn} />}
+        <main className="flex-grow flex justify-center items-start pt-20">
           <Routes>
-            <Route path="/" element={<Home isLoggedIn={isLoggedIn} />} />
+            <Route path="/" element={<Home isSignedIn={isSignedIn} />} />
             <Route path="/signup" element={<Signup />} />
-            <Route path="/signin" element={<Signin setIsLoggedIn={setIsLoggedIn} />} />
+            <Route path="/signin" element={<Signin setIsSignedIn={setIsSignedIn} />} />
             <Route
               path="/mypage"
               element={

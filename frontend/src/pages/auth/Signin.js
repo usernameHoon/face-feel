@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import { loginUser } from "../../services/authService";
+import { signinUser } from "../../services/authService";
 
-const Signin = ({ setIsLoggedIn }) => {
+const Signin = ({ setIsSignedIn }) => {
   const [form, setForm] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ const Signin = ({ setIsLoggedIn }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    loginUser(form, setIsLoggedIn, navigate, setError);
+    signinUser(form, setIsSignedIn, navigate, setError);
   };
 
   return (

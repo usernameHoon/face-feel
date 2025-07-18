@@ -1,6 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
+
 import Webcam from "react-webcam";
 import axios from "axios";
+import { getToken } from "../services/authService";
 
 const EmotionLive = () => {
   const webcamRef = useRef(null);
@@ -9,7 +12,11 @@ const EmotionLive = () => {
   const [lastSaved, setLastSaved] = useState(null);
   const [loading, setLoading] = useState(false);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+
   const intervalRef = useRef(null);
+  const isAuthenticated = !!getToken();
+
+  const token = localStorage.getItem("token");
 
   const emotionDisplayMap = {
     angry: "화남 😠",
@@ -62,13 +69,18 @@ const EmotionLive = () => {
 
     try {
       setLoading(true);
-      await axios.post("http://localhost:5000/save-emotion", {
+      await axios.post("http://localhost:8080/api/save-emotion", {
         emotion,
         confidence,
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       });
 
       setLastSaved(new Date().toLocaleTimeString());
       alert("감정 저장 완료!");
+      window.location.href = "/mypage";
     } catch (err) {
       console.error("감정 저장 실패:", err);
       alert("감정 저장 실패");
@@ -78,46 +90,59 @@ const EmotionLive = () => {
   };
 
   return (
-    <div className="flex flex-col items-center space-y-4">
-      {/* <h1 className="text-2xl font-bold">실시간 감정 분석</h1>
-
-      <div className="relative">
-        <Webcam
-          ref={webcamRef}
-          audio={false}
-          screenshotFormat="image/jpeg"
-          width={400}
-          height={300}
-          className="rounded shadow"
-        />
-        {emotion && (
-          <div className="absolute top-2 left-2 bg-black bg-opacity-60 text-white px-3 py-1 rounded">
-            감정: {emotionDisplayMap[emotion] || emotion} ({confidence}%)
+    <div className="mt-2 flex flex-col items-center">
+      <h2 className="text-2xl font-bold text-gray-800 mb-6">실시간 감정 분석</h2>
+      {isAuthenticated ? (
+        <>
+          <div className="relative">
+            <Webcam
+              ref={webcamRef}
+              audio={false}
+              screenshotFormat="image/jpeg"
+              className="w-full max-w-lg rounded-2xl shadow-xl border border-gray-200"
+            />
+            {emotion && (
+              <div className="absolute top-4 left-4 bg-black bg-opacity-80 text-white px-5 py-3 rounded-xl text-base shadow-md">
+                😊 감정: <span className="font-semibold">{emotionDisplayMap[emotion] || emotion}</span><br />
+                🔍 정확도: {confidence}%
+              </div>
+            )}
           </div>
-        )}
-      </div>
 
-      <div className="flex gap-4">
-        <button
-          onClick={toggleAnalysis}
-          className={`${isAnalyzing ? "bg-red-600 hover:bg-red-700" : "bg-blue-600 hover:bg-blue-700"
-            } text-white px-4 py-2 rounded`}
-        >
-          {isAnalyzing ? "분석 중지" : "분석 시작"}
-        </button>
+          <div className="flex gap-5 mt-8">
+            <button
+              onClick={toggleAnalysis}
+              className={`flex items-center gap-2 px-6 py-3 rounded-xl text-lg font-semibold text-white transition
+            ${isAnalyzing
+                  ? "bg-red-600 hover:bg-red-700"
+                  : "bg-blue-600 hover:bg-blue-700"
+                }`}
+            >
+              {isAnalyzing ? "⛔ 분석 중지" : "▶️ 분석 시작"}
+            </button>
 
-        <button
-          onClick={saveEmotion}
-          className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded"
-          disabled={loading}
-        >
-          {loading ? "저장 중..." : "감정 저장"}
-        </button>
-      </div>
+            <button
+              onClick={saveEmotion}
+              className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl text-lg font-semibold transition disabled:opacity-50"
+              disabled={loading}
+            >
+              💾 {loading ? "저장 중..." : "감정 저장"}
+            </button>
+          </div>
 
-      {lastSaved && (
-        <p className="text-sm text-gray-500">최근 저장: {lastSaved}</p>
-      )} */}
+          {lastSaved && (
+            <p className="text-sm text-gray-500 mt-4">🕒 최근 저장: {lastSaved}</p>
+          )}
+        </>
+      ) : (
+        <div className="text-center text-gray-700 text-lg mt-12">
+          감정 분석 기능을 사용하려면{" "}
+          <Link to="/signin" className="font-bold text-blue-600 hover:underline">
+            로그인
+          </Link>
+          이 필요합니다.
+        </div>
+      )}
     </div>
   );
 };

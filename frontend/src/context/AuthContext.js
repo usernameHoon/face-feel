@@ -4,7 +4,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isSignedIn, setIsSignedIn] = useState(false);
   const [role, setRole] = useState(null);
 
   useEffect(() => {
@@ -12,27 +12,27 @@ export const AuthProvider = ({ children }) => {
     const token = localStorage.getItem('token');
     if (userData && token) {
       const user = JSON.parse(userData);
-      setIsLoggedIn(true);
+      setIsSignedIn(true);
       setRole(user.role);
     }
   }, []);
 
-  const login = (userData, token) => {
+  const signin = (userData, token) => {
     localStorage.setItem('user', JSON.stringify(userData));
     localStorage.setItem('token', token);
-    setIsLoggedIn(true);
+    setIsSignedIn(true);
     setRole(userData.role);
   };
 
-  const logout = () => {
+  const signout = () => {
     localStorage.removeItem('user');
     localStorage.removeItem('token');
-    setIsLoggedIn(false);
+    setIsSignedIn(false);
     setRole(null);
   };
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, role, login, logout }}>
+    <AuthContext.Provider value={{ isSignedIn, role, signin, signout }}>
       {children}
     </AuthContext.Provider>
   );

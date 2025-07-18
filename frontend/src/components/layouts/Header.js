@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { logoutAndRedirect } from '../../utils/authUtils';
 
-const Header = ({ isLoggedIn, setIsLoggedIn }) => {
+const Header = ({ isSignedIn, setIsSignedIn }) => {
   const user = JSON.parse(localStorage.getItem("user"));
 
   const [userName, setUserName] = useState("");
@@ -14,7 +14,7 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
     if (user) {
       setUserName(user.name);
     }
-  }, [isLoggedIn]);
+  }, [isSignedIn]);
 
   return (
     <header className="bg-gray-800 text-white shadow-md">
@@ -26,7 +26,7 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
         </h1>
 
         <nav className="flex items-center space-x-6 text-sm font-medium">
-          {isLoggedIn ? (
+          {isSignedIn ? (
             <>
               <span className="text-base text-green-600">
                 [ {userName} ]님 환영합니다.
@@ -49,7 +49,7 @@ const Header = ({ isLoggedIn, setIsLoggedIn }) => {
               )}
 
               <button
-                onClick={() => logoutAndRedirect(setIsLoggedIn, navigate)}
+                onClick={() => logoutAndRedirect(setIsSignedIn, navigate)}
                 className="hover:text-blue-700 transition-colors"
               >
                 Sign Out

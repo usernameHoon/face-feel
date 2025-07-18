@@ -17,16 +17,16 @@ export const getUserIdFromToken = () => {
   }
 };
 
-export const loginUser = async (form, setIsLoggedIn, navigate, setError) => {
+export const signinUser = async (form, setIsSignedIn, navigate, setError) => {
   try {
-    const res = await axios.post("http://localhost:8080/api/login", form);
+    const res = await axios.post("http://localhost:8080/api/signin", form);
 
     const { token, user } = res.data;
 
     localStorage.setItem("token", token);
     localStorage.setItem("user", JSON.stringify(user));
 
-    setIsLoggedIn(true);
+    setIsSignedIn(true);
 
     if (user.role === "ADMIN") {
       navigate("/admin");
@@ -52,7 +52,7 @@ export const signupUser = async (form, navigate, setError) => {
     });
 
     alert("회원가입 성공!");
-    navigate("/login");
+    navigate("/signin");
   } catch (error) {
     setError("이미 존재하는 이메일입니다.");
   }

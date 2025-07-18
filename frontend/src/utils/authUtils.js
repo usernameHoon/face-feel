@@ -1,6 +1,6 @@
-export const logoutAndRedirect = (setIsLoggedIn, navigate) => {
+export const logoutAndRedirect = (setIsSignedIn, navigate) => {
   localStorage.removeItem("token");
   localStorage.removeItem("user");
-  setIsLoggedIn(false);
-  navigate("/login");
+  setIsSignedIn(false);
+  navigate("/");
 };
